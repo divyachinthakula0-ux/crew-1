@@ -1,4 +1,4 @@
-# Member 4 — Orders & Payments Tables
+# Orders & Payments Tables
 
 ## Orders Table
 
