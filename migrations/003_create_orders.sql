@@ -10,10 +10,12 @@ CREATE TABLE IF NOT EXISTS orders (
         ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_orders_user
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
         ON DELETE RESTRICT,
 
     CONSTRAINT fk_orders_project
-        FOREIGN KEY (project_id) REFERENCES projects(id)
+        FOREIGN KEY (project_id)
+        REFERENCES projects(id)
         ON DELETE SET NULL
 ) ENGINE=InnoDB;
