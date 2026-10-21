@@ -1,5 +1,7 @@
 # Orders & Payments Tables
 
+Schema is migration-driven (001-005).
+
 ## Orders Table
 
 | Column Name | Data Type | Required/Optional | Key |
