@@ -3,6 +3,11 @@
 -- Covers: auth link, RLS + policies, timestamps, constraints, indexes,
 --         views security_invoker, column-level privileges.
 -- Safe to re-run: uses IF EXISTS / IF NOT EXISTS / guards where possible.
+--
+-- IMPORTANT:
+-- This migration assumes the current production database state.
+-- It may fail on a clean database created only from migrations 001-004
+-- unless user_settings, user_sessions and related tables exist.
 -- =====================================================================
 
 BEGIN;
