@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS projects (
         ON UPDATE CURRENT_TIMESTAMP,
 
     CONSTRAINT fk_projects_user
-        FOREIGN KEY (user_id) REFERENCES users(id)
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
