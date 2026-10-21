@@ -1,25 +1,16 @@
-CREATE TABLE projects (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id BIGINT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+CREATE TABLE IF NOT EXISTS projects (
+    id CHAR(36) NOT NULL,
+    user_id CHAR(36) NOT NULL,
     title VARCHAR(150) NOT NULL,
     description TEXT,
-    status VARCHAR(20) NOT NULL DEFAULT 'open'
-        CHECK (status IN ('open', 'in_progress', 'completed', 'cancelled')),
-    created_at TIMESTAMP NOT NULL DEFAULT now(),
-    updated_at TIMESTAMP NOT NULL DEFAULT now()
-);
-
-ALTER TABLE projects ENABLE ROW LEVEL SECURITY;
-
--- Owners can view, add, edit, and delete their own projects
-CREATE POLICY "Users manage own projects"
-ON projects
-FOR ALL
-USING (auth.uid()::text = user_id::text)
-WITH CHECK (auth.uid()::text = user_id::text);
-
--- Anyone can view projects that are open (public browsing)
-CREATE POLICY "projects_public_read"
-ON projects
-FOR SELECT
-USING (status = 'open');
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY fk_projects_user (user_id),
+    CONSTRAINT fk_projects_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
