@@ -13,3 +13,4 @@ CREATE TABLE IF NOT EXISTS projects (
         REFERENCES users(id)
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
+
