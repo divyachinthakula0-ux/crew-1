@@ -1,19 +1,17 @@
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE IF NOT EXISTS payments (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    user_id CHAR(36) NOT NULL,
-    project_id CHAR(36) NULL,
-    order_date TIMESTAMP NULL,
-    status VARCHAR(20) NOT NULL,
-    total_amount DECIMAL(10,2) NOT NULL,
+    order_id BIGINT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(20) NULL,
+    transaction_reference VARCHAR(255) UNIQUE,
+    paid_at TIMESTAMP NULL,
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_orders_user
-        FOREIGN KEY (user_id) REFERENCES users(id)
-        ON DELETE RESTRICT,
-
-    CONSTRAINT fk_orders_project
-        FOREIGN KEY (project_id) REFERENCES projects(id)
-        ON DELETE SET NULL
+    CONSTRAINT fk_payments_order
+        FOREIGN KEY (order_id)
+        REFERENCES orders(id)
+        ON DELETE RESTRICT
 ) ENGINE=InnoDB;
